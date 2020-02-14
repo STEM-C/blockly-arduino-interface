@@ -1,58 +1,68 @@
 <html>
 	<header>
 		<meta charset="UTF-8">
+		<title>STEM+C</title> 
+
 		<!--libraries for style-->
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
 
-		<!-- libraries for blockly and ardublockly -->
-		<script src="blockly_compressed.js"></script>
-		<script src="blocks_compressed.js"></script>
-		<script src="en.js"></script>
+		<!-- libraries for blockly -->
+		<script src="lib/blockly_compressed.js"></script>
+		<script src="lib/blocks_compressed.js"></script>
+		<script src="lib/en.js"></script>
 
-		<!-- here are the libraries to get text code from the blocks -->
-		<script src="arduino_compressed.js"></script>
-		<script src="javascript_compressed.js"></script>
+		<!-- here are the libraries to get code from the blocks -->
+		<script src="lib/arduino_compressed.js"></script>
+		<script src="lib/javascript_compressed.js"></script>
 		
-		<!-- some style overwritting -->
-		<style type="text/css">
-	        #mynetwork {
-	            width: 100%;
-	            height: 75%;
-	            border: 1px solid lightgray;
-	        }
-	    </style>
-
-	    <!--
-	    	To create new blocks for blockly, or to adapt some of the blocks we want to have, we will use the blockly factory
-	    	You can find it here: https://blockly-demo.appspot.com/static/demos/blockfactory/index.html
-	    	Additionally, for examples on using Blockly, check the Demos displayed here: 
-	    	https://blockly-demo.appspot.com/static/demos/index.html
-	    -->
-
-
+		<!-- styles -->
+		<link href="assets/style.css" rel="stylesheet" type="text/css">
 	</header>
-
 	<body>
-		<div class="container-fluid">
-			<div class="row">
-
-					<div class="col-md-12">
-						<h1>Prototype</h1>
+		<div id="container" class="flex flex-column">
+			<div id="nav-container" class="flex vertical-container">
+				<h1 id="title">STEM+C</h1>
+				<div id="action-btn-container" class="flex btn-container">
+					<i onclick="alert(getJS())" class="fab fa-js"></i>
+					<i onclick="alert(getArduino())">A</i>
+					<i onclick="compileArduinoCode()" class="fas fa-play"></i>
+				</div>
+			</div>
+			<div id="top-container" class="flex flex-column vertical-container">
+				<div id="description-container" class="flex flex-column card">
+					<h3>Maker Activity X</h3>
+					<p><b>Instructions / Science Brief: </b>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
+							ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+							laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+							voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+							non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				</div>
+			</div>
+			<div id="bottom-container" class="flex vertical-container">
+				<div id="blockly-canvas"></div>
+				<div id="models-container" class="flex flex-column card">
+					<h3>Activity Models</h3>
+					<img src="assets/arduino.png" id="model-img" />
+					<div id="model-btn-container" class="flex btn-container">
+						<span>
+							<input type="radio" value="arduino" name="model-btn" checked>
+							<label for="btn-arduino">Arduino</label>
+						</span>
+						<span>
+							<input type="radio" value="maker" name="model-btn">
+							<label for="btn-maker">Maker</label>
+						</span>
+						<span>
+							<input type="radio" value="science" name="model-btn">
+							<label for="btn-science">Science</label>
+						</span>
 					</div>
-					<h3>&nbsp;</h3>
-					<div class="row" style="height: 900px">
-						<div class="col-md-12">
-							<button type="button" class="btn btn-dark" onclick="showCodeArduino()">Arduino</button>
-							<h3>&nbsp;</h3>
-							<div id="blocklyDiv" style="height: 720px"></div>
-						</div>
-					</div>
+				</div>
 			</div>
 		</div>
-
+		
 		<!-- This xml is for the blocks' menu we will provide. Here are examples on how to include categories and subcategories -->
 		<xml id="toolbox" style="display: none">
 			<!-- Here I input Blockly category and blocks -->
@@ -108,23 +118,5 @@
 			</category>
 		</xml>
 	</body>
-	
-	<script>
-	  var workspace = Blockly.inject('blocklyDiv',
-		  {toolbox: document.getElementById('toolbox')});
-
-	  function showCodeJS() {
-	      // Generates Arduino code to display it.
-	      Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-	      var code = Blockly.JavaScript.workspaceToCode(workspace);
-	      alert(code);
-	  }
-
-	  function showCodeArduino() {
-	      // Generates Arduino code to display it.
-	      Blockly.Arduino.INFINITE_LOOP_TRAP = null;
-	      var code = Blockly.Arduino.workspaceToCode(workspace);
-	      alert(code);
-	  }
-	</script>
+	<script src="lib/index.js"></script>
 </html>
