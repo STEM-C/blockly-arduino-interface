@@ -1,0 +1,130 @@
+<html>
+	<header>
+		<meta charset="UTF-8">
+		<!--libraries for style-->
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+		<!-- libraries for blockly and ardublockly -->
+		<script src="blockly_compressed.js"></script>
+		<script src="blocks_compressed.js"></script>
+		<script src="en.js"></script>
+
+		<!-- here are the libraries to get text code from the blocks -->
+		<script src="arduino_compressed.js"></script>
+		<script src="javascript_compressed.js"></script>
+		
+		<!-- some style overwritting -->
+		<style type="text/css">
+	        #mynetwork {
+	            width: 100%;
+	            height: 75%;
+	            border: 1px solid lightgray;
+	        }
+	    </style>
+
+	    <!--
+	    	To create new blocks for blockly, or to adapt some of the blocks we want to have, we will use the blockly factory
+	    	You can find it here: https://blockly-demo.appspot.com/static/demos/blockfactory/index.html
+	    	Additionally, for examples on using Blockly, check the Demos displayed here: 
+	    	https://blockly-demo.appspot.com/static/demos/index.html
+	    -->
+
+
+	</header>
+
+	<body>
+		<div class="container-fluid">
+			<div class="row">
+
+					<div class="col-md-12">
+						<h1>Prototype</h1>
+					</div>
+					<h3>&nbsp;</h3>
+					<div class="row" style="height: 900px">
+						<div class="col-md-12">
+							<button type="button" class="btn btn-dark" onclick="showCodeArduino()">Arduino</button>
+							<h3>&nbsp;</h3>
+							<div id="blocklyDiv" style="height: 720px"></div>
+						</div>
+					</div>
+			</div>
+		</div>
+
+		<!-- This xml is for the blocks' menu we will provide. Here are examples on how to include categories and subcategories -->
+		<xml id="toolbox" style="display: none">
+			<!-- Here I input Blockly category and blocks -->
+		 	<category name="Conditionals">
+			 	<category name="Operations">
+			 		<block type="controls_if"></block>
+		  			<block type="logic_compare"></block>
+		  			<block type="controls_whileUntil"></block>
+			 	</category>
+			</category>
+			<category name="Input and Output">
+				<category name="Numeric">
+					<block type="math_number"></block>
+					<block type="math_arithmetic"></block>
+				</category>
+				<category name="Text">
+					<block type="text"></block>
+					<block type="text_print"></block>
+				</category>
+				<category name="Your Variables"  custom="VARIABLE"></category>
+			</category>
+			<!-- Here I input Ardublockly category and blocks. Check: ardublockly_toolbox.js -->
+			<category id="catInputOutput" name="Input/Output"> 
+			    <block type="io_digitalwrite"> 
+			      <value name="STATE"> 
+			        <block type="io_highlow"></block> 
+			      </value> 
+			    </block> 
+			    <block type="io_digitalread"></block> 
+			    <block type="io_builtin_led"> 
+			      <value name="STATE"> 
+			        <block type="io_highlow"></block> 
+			      </value> 
+			    </block> 
+			    <block type="io_analogwrite"></block> 
+			    <block type="io_analogread"></block> 
+			    <block type="io_highlow"></block> 
+			    <block type="io_pulsein"> 
+			      <value name="PULSETYPE"> 
+			        <shadow type="io_highlow"></shadow> 
+			      </value> 
+			    </block> 
+			    <block type="io_pulsetimeout"> 
+			      <value name="PULSETYPE"> 
+			        <shadow type="io_highlow"></shadow> 
+			      </value> 
+			      <value name="TIMEOUT"> 
+			        <shadow type="math_number"> 
+			          <field name="NUM">100</field> 
+			        </shadow> 
+			      </value>
+			    </block> 
+			</category>
+		</xml>
+	</body>
+	
+	<script>
+	  var workspace = Blockly.inject('blocklyDiv',
+		  {toolbox: document.getElementById('toolbox')});
+
+	  function showCodeJS() {
+	      // Generates Arduino code to display it.
+	      Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+	      var code = Blockly.JavaScript.workspaceToCode(workspace);
+	      alert(code);
+	  }
+
+	  function showCodeArduino() {
+	      // Generates Arduino code to display it.
+	      Blockly.Arduino.INFINITE_LOOP_TRAP = null;
+	      var code = Blockly.Arduino.workspaceToCode(workspace);
+	      alert(code);
+	  }
+	</script>
+</html>
