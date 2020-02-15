@@ -14,7 +14,7 @@ h3, p {
     flex-direction: column;
 }
 
-.btn-container {
+.space-between {
     justify-content: space-between;
 }
 
@@ -31,7 +31,6 @@ h3, p {
     margin: 0;
     background-color: rgb(32, 145, 173);
     color: white;
-    justify-content: space-between;
     align-items: center;
 }
 
@@ -71,7 +70,6 @@ h3, p {
 #models-container {
     flex: 1;
     margin-left: 1.5em;
-    justify-content: space-between;
 }
 
 #mode-img {
@@ -79,6 +77,3 @@ h3, p {
     height: auto;
 }
 
-#model-btn-container {
-    justify-content: space-between;
-}

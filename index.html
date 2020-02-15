@@ -1,6 +1,7 @@
 <html>
 	<header>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>STEM+C</title> 
 
 		<!--libraries for style-->
@@ -21,9 +22,9 @@
 	</header>
 	<body>
 		<div id="container" class="flex flex-column">
-			<div id="nav-container" class="flex vertical-container">
+			<div id="nav-container" class="flex vertical-container space-between">
 				<h1 id="title">STEM+C</h1>
-				<div id="action-btn-container" class="flex btn-container">
+				<div id="action-btn-container" class="flex space-between">
 					<i onclick="alert(getJS())" class="fab fa-js"></i>
 					<i onclick="alert(getArduino())">A</i>
 					<i onclick="compileArduinoCode()" class="fas fa-play"></i>
@@ -42,10 +43,10 @@
 			</div>
 			<div id="bottom-container" class="flex vertical-container">
 				<div id="blockly-canvas"></div>
-				<div id="models-container" class="flex flex-column card">
+				<div id="models-container" class="flex flex-column card space-between">
 					<h3>Activity Models</h3>
 					<img src="assets/arduino.png" id="model-img" />
-					<div id="model-btn-container" class="flex btn-container">
+					<div id="model-btn-container" class="flex space-between">
 						<span>
 							<input type="radio" value="arduino" name="model-btn" checked>
 							<label for="btn-arduino">Arduino</label>
