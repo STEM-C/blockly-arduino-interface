@@ -7,6 +7,7 @@
 		<!--libraries for style-->
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover.css"/>
 
 		<!-- libraries for blockly -->
 		<script src="lib/blockly_compressed.js"></script>
@@ -16,6 +17,9 @@
 		<!-- here are the libraries to get code from the blocks -->
 		<script src="lib/arduino_compressed.js"></script>
 		<script src="lib/javascript_compressed.js"></script>
+
+		<!-- serial api library taken from https://github.com/noopkat/avrgirl-arduino/tree/master/dist -->
+		<script src="lib/avrgirl-arduino.global.js" charset="UTF-8"></script>
 		
 		<!-- styles -->
 		<link href="assets/style.css" rel="stylesheet" type="text/css">
@@ -25,9 +29,9 @@
 			<div id="nav-container" class="flex vertical-container space-between">
 				<h1 id="title">STEM+C</h1>
 				<div id="action-btn-container" class="flex space-between">
-					<i onclick="alert(getJS())" class="fab fa-js"></i>
-					<i onclick="alert(getArduino())">A</i>
-					<i onclick="compileArduinoCode()" class="fas fa-play"></i>
+					<i onclick="alert(getJS())" onmouseover="this.style.cursor='hand'" class="fab fa-js hvr-grow"></i>
+					<i onclick="alert(getArduino())" onmouseover="this.style.cursor='hand'" class="hvr-grow">A</i>
+					<i onclick="compileArduinoCode()" onmouseover="this.style.cursor='hand'" class="fas fa-play hvr-grow"></i>
 				</div>
 			</div>
 			<div id="top-container" class="flex flex-column vertical-container">
@@ -42,7 +46,7 @@
 				</div>
 			</div>
 			<div id="bottom-container" class="flex vertical-container">
-				<div id="blockly-canvas"></div>
+				<div id="blockly-canvas" style="height: 800px; width: 100%;"></div>
 				<div id="models-container" class="flex flex-column card space-between">
 					<h3>Activity Models</h3>
 					<img src="assets/arduino.png" id="model-img" />
